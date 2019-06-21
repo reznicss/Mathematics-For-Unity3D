@@ -61,8 +61,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Constant.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Enum.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IconUtility.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_IgnoreSnapAttribute.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_SceneMeshRender.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\Classes\pg_Util.cs" />
+    <Compile Include="Assets\ProCore\ProGrids\MonoBehaviour\pg_IgnoreSnap.cs" />
     <Compile Include="Assets\Tools\Math3D.cs" />
     <Compile Include="Assets\Vector\VectorTest.cs" />
+    <None Include="Assets\ProCore\ProGrids\Shader\pg_GridShader.shader" />
+    <None Include="Assets\ProCore\ProGrids\About\pc_AboutEntry_ProGrids.txt" />
+    <None Include="Assets\ProCore\ProGrids\About\changelog.txt" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>D:/Ss/Git/Mathematics-For-Unity3D/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
