@@ -92,7 +92,7 @@ public class Math3D
         // cosα  = a · b / (‖a‖‖b‖) = ‖projB‖/‖a‖
         // => ‖projB‖ =  a · b / (‖a‖‖b‖) * ‖a‖
         // => projB = a · b / (‖a‖‖b‖) * ‖a‖ * ( b /‖b‖) 
-        return b * Vector3.Dot(a,b) / Vector3.Dot(b,b);
+        return b * Vector3.Dot(a, b) / Vector3.Dot(b, b);
     }
 
     /// <summary>
@@ -125,6 +125,12 @@ public class Math3D
     /// </summary>
     public static Vector3 V3Cross(Vector3 a, Vector3 b)
     {
+        /**
+         * | i   j   k   |     |0   -Pz  Py| |Qx| 
+         * | Px  Py  Pz  |     |Pz   0  -Px| |Qy|
+         * | Qx  Qy  Qz  |     |-Py  Px  0 | |Qz|
+         * = i(PyQz - PzQy) - j(PxQz - PzQx) + k(PxQy - PyQx)
+         * */
         var c = new Vector3(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
         //遵守左手定律(Unity为左手坐标系)
         if (c.y > 0)
