@@ -17,7 +17,7 @@ using UnityEngine;
  * 12.P×(Q×P) = P×Q×P = P²Q -(P·Q)P
  * */
 
-public class Math3D
+public class MathVector
 {
     /// <summary>
     /// 模
