@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MatrixTest : MonoBehaviour
-{
+public class TranformTest : MonoBehaviour {
+
     public Matrix4x4 matrix;
 
     private void Awake()
@@ -13,13 +13,6 @@ public class MatrixTest : MonoBehaviour
 
     void Start()
     {
-        //Debug.Log("矩阵:\n" + matrix);
-        //Debug.Log("单位矩阵:\n" + Matrix4x4.identity);
-        //Debug.Log("转置矩阵(沿主对角线翻转):\n" + matrix.transpose);
-        //Debug.Log("逆矩阵:\n" + matrix.inverse);
-
-        //CreateMesh(gameObject, new Vector3[] { new Vector3(0, 0, 0), new Vector3(0, 1, 0), new Vector3(1, 1, 0) }, new int[] { 0, 1, 2 }, Resources.Load("Materials/DefaultMat") as Material);
-
         //世界坐标点
         Vector3 worldPos = new Vector3(4f, 5f, 6f);
 
@@ -41,19 +34,4 @@ public class MatrixTest : MonoBehaviour
         Debug.Log("转换本地坐标(InverseTransformVector，将坐标点从世界坐标转换为本地坐标，不受位置影响但受缩放影响):" + targetTransform.InverseTransformVector(worldPos));
         Debug.Log("转换本地坐标(InverseTransformDirection，不受位置、缩放的影响):" + targetTransform.InverseTransformDirection(worldPos));
     }
-
-    void CreateMesh(GameObject go, Vector3[] vertices, int[] triangles, Material mat)
-    {
-        MeshFilter mf = go.AddComponent<MeshFilter>();
-        Mesh mesh = new Mesh();
-        mesh.Clear();
-        mesh.vertices = vertices;
-        mesh.triangles = triangles;
-        mf.mesh = mesh;
-
-        MeshRenderer mr = go.AddComponent<MeshRenderer>();
-        mr.material = mat;
-    }
-
-
 }

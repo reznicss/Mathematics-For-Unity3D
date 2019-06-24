@@ -3,10 +3,5 @@ Packages
 Temp
 obj
 .vs
-.sln
-Mathematics-For-Unity3D.sln
-Assembly-CSharp.csproj
-Assembly-CSharp.csproj
-Assembly-CSharp-Editor.csproj
-Assembly-CSharp.csproj
-Assembly-CSharp.csproj
+*.csproj
+*.sln
