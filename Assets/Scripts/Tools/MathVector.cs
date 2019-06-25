@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/**
+/* 向量常用
  * 1.‖P + Q‖ ≤ ‖P‖+ ‖Q‖     几何意义，三角形的两边之和大于第三边
  * 2.‖P· Q‖ ≤ ‖P‖‖Q‖       Cauchy-Schwarz不等式
  * 3. P·Q = ‖P‖‖Q‖cosα     根据余弦定理推得(‖P - Q‖² = ‖P‖²+ ‖Q‖² - 2||P|| ||Q|| cosα)
@@ -15,7 +15,7 @@ using UnityEngine;
  * 10.(P×Q)·R = (R×P)·Q =(Q×R)·P
  * 11.P×(Q+R) = P×Q + P×R
  * 12.P×(Q×P) = P×Q×P = P²Q -(P·Q)P
- * */
+ */
 
 public class MathVector
 {
