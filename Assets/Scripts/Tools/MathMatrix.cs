@@ -69,4 +69,31 @@ public class MathMatrix
         return new Vector3(x, y, z);
     }
 
+    /// <summary>
+    /// 世界到本地矩阵
+    /// </summary>
+    public static Matrix4x4 LocalToWorld(Transform transform)
+    {
+        ////变换顺序:缩放->旋转->平移  矩阵相乘顺序T*R*S
+        //var tM = new Matrix4x4();
+        //tM.SetTRS(transform.position, Quaternion.identity, Vector3.one);
+        //var rM = new Matrix4x4();
+        //rM.SetTRS(Vector3.zero, transform.rotation, Vector3.one);
+        //var sM = new Matrix4x4();
+        //sM.SetTRS(Vector3.zero, Quaternion.identity, transform.localScale);
+        //return tM * rM * sM;
+
+        var matrix = new Matrix4x4();
+        matrix.SetTRS(transform.position, transform.rotation, transform.localScale);
+        return matrix;
+    }
+
+    /// <summary>
+    /// 本地到世界
+    /// </summary>
+    public static Matrix4x4 WorldToLocal(Transform transform)
+    {
+        return LocalToWorld(transform).inverse;
+    }
+
 }
