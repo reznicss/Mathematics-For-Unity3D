@@ -5,3 +5,5 @@ obj
 .vs
 *.csproj
 *.sln
+Assembly-CSharp-Editor-firstpass.csproj
+Assembly-CSharp-firstpass.csproj

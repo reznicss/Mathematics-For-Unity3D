@@ -5,6 +5,36 @@ using UnityEngine;
 public class MathTransform
 {
     /// <summary>
+    /// 本地坐标转换为世界坐标(以transform为起点，受缩放影响)
+    /// </summary>
+    public static Vector3 TransformPoint(Transform transform, Vector3 point)
+    {
+        Matrix4x4 localToWorld = new Matrix4x4();
+        localToWorld.SetTRS(transform.position, transform.rotation, transform.localScale);
+        return localToWorld.MultiplyPoint(point);
+    }
+
+    /// <summary>
+    /// 本地坐标转换为世界坐标(Vector3.zero为起点，受缩放影响)
+    /// </summary>
+    public static Vector3 TransformVector(Transform transform, Vector3 point)
+    {
+        Matrix4x4 localToWorld = new Matrix4x4();
+        localToWorld.SetTRS(Vector3.zero, transform.rotation, transform.localScale);
+        return localToWorld.MultiplyPoint(point);
+    }
+
+    /// <summary>
+    /// 本地坐标转换为世界坐标(Vector3.zero为起点，不受位置、缩放影响)
+    /// </summary>
+    public static Vector3 TransformDirection(Transform transform, Vector3 point)
+    {
+        Matrix4x4 localToWorld = new Matrix4x4();
+        localToWorld.SetTRS(Vector3.zero, transform.rotation, Vector3.one);
+        return localToWorld.MultiplyPoint(point);
+    }
+
+    /// <summary>
     /// 世界坐标转换为本地坐标(以transform为起点，受缩放影响)
     /// </summary>
     public static Vector3 InverseTransformPoint(Transform transform, Vector3 point)
@@ -68,15 +98,24 @@ public class MathTransform
     /// </summary>
     public static Vector3 WorldToScreenPoint(Camera camera, Vector3 objPos)
     {
-        Matrix4x4 v = camera.worldToCameraMatrix;
-        Matrix4x4 p = camera.projectionMatrix;
-        Matrix4x4 vp = p * v;
-        //获取投影坐标
-        Vector3 screenPos = vp.MultiplyPoint(objPos);
-        // (-1, 1)'s clip => (0 ,1)'s viewport 
-        screenPos = new Vector3(screenPos.x + 1f, screenPos.y + 1f, screenPos.z + 1f) / 2f;
-        // viewport => screen
-        screenPos = new Vector3(screenPos.x * Screen.width, screenPos.y * Screen.height, objPos.z - camera.transform.position.z);
+        Vector3 forward = camera.transform.TransformDirection(Vector3.forward);
+        Vector3 toOther = objPos - camera.transform.position;
+        Vector3 screenPos = Vector3.zero;
+        //必须在摄像机前方
+        if (Vector3.Dot(forward, toOther) > 0)
+        {
+            Matrix4x4 v = camera.worldToCameraMatrix;
+            Matrix4x4 p = camera.projectionMatrix;
+            Matrix4x4 vp = p * v;
+            //获取投影坐标
+            screenPos = vp.MultiplyPoint(objPos);
+            // (-1, 1)'s clip => (0 ,1)'s viewport 
+            screenPos = new Vector3(screenPos.x + 1f, screenPos.y + 1f, screenPos.z + 1f) / 2f;
+            Debug.Log("投影坐标:" + screenPos);
+            // viewport => screen
+            screenPos = new Vector3(screenPos.x * Screen.width, screenPos.y * Screen.height, objPos.z - camera.transform.position.z);
+        }
+   
         return screenPos;
     }
     #endregion

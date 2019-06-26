@@ -17,16 +17,19 @@ public class TranformTest : MonoBehaviour {
 
     void Start()
     {
-        Vector3 worldPos = new Vector3(4f, 5f, 6f);
-
-        /*三者区别：
-         * 2.在转换过程中，point和vector均受物体的缩放影响（等比例改变），Direction以世界坐标系零点为起点，不受位置、缩放的影响
-         */
+        var worldPos = transform.position;
+        var localPos = transform.localPosition;
         Debug.Log("世界坐标:" + MathTransform.LocalToWorldPos(transform)) ;
-        Debug.Log("转换本地坐标(InverseTransformPoint，将位置从世界坐标转换为本地坐标，受缩放影响):" + transform.InverseTransformPoint(worldPos) + "____" + MathTransform.InverseTransformPoint(transform,worldPos));
-        Debug.Log("转换本地坐标(InverseTransformVector，将坐标点从世界坐标转换为本地坐标，不受位置影响但受缩放影响):" + transform.InverseTransformVector(worldPos) + "____" + MathTransform.InverseTransformVector(transform,worldPos));
-        Debug.Log("转换本地坐标(InverseTransformDirection，不受位置、缩放的影响):" + transform.InverseTransformDirection(worldPos) + "____" + MathTransform.InverseTransformDirection(transform,worldPos));
+         
+        Debug.Log("转换世界坐标(TransformPoint):" + transform.TransformPoint(localPos) + "____" + MathTransform.TransformPoint(transform, localPos));
+        Debug.Log("转换世界坐标(TransformVector):" + transform.TransformVector(localPos) + "____" + MathTransform.TransformVector(transform, localPos));
+        Debug.Log("转换世界坐标(TransformDirection):" + transform.TransformDirection(localPos) + "____" + MathTransform.TransformDirection(transform, localPos));
 
+        Debug.Log("转换本地坐标(InverseTransformPoint):" + transform.InverseTransformPoint(worldPos) + "____" + MathTransform.InverseTransformPoint(transform,worldPos));
+        Debug.Log("转换本地坐标(InverseTransformVector):" + transform.InverseTransformVector(worldPos) + "____" + MathTransform.InverseTransformVector(transform,worldPos));
+        Debug.Log("转换本地坐标(InverseTransformDirection):" + transform.InverseTransformDirection(worldPos) + "____" + MathTransform.InverseTransformDirection(transform,worldPos));
+
+        var pos = new Vector3(1, 2, 3);
         Debug.Log("世界坐标转屏幕坐标点:" + mainCam.WorldToScreenPoint(worldPos) + "____" + MathTransform.WorldToScreenPoint(mainCam, worldPos));
     }
 
