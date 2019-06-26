@@ -94,13 +94,13 @@ public class MathTransform
 
     #region MVP推导
     /// <summary>
-    /// 世界坐标转屏幕坐标
+    /// 世界坐标转视口坐标(View Port)
     /// </summary>
-    public static Vector3 WorldToScreenPoint(Camera camera, Vector3 objPos)
+    public static Vector3 WorldToViewportPoint(Camera camera, Vector3 objPos)
     {
         Vector3 forward = camera.transform.TransformDirection(Vector3.forward);
         Vector3 toOther = objPos - camera.transform.position;
-        Vector3 screenPos = Vector3.zero;
+        Vector3 pos = Vector3.zero;
         //必须在摄像机前方
         if (Vector3.Dot(forward, toOther) > 0)
         {
@@ -108,15 +108,41 @@ public class MathTransform
             Matrix4x4 p = camera.projectionMatrix;
             Matrix4x4 vp = p * v;
             //获取投影坐标
-            screenPos = vp.MultiplyPoint(objPos);
+            pos = vp.MultiplyPoint(objPos);
+            //坐标裁剪 (-1, 1)'s clip => (0 ,1)'s viewport
+            Debug.Log(pos.z);
+            pos = new Vector3((pos.x + 1f)/2, (pos.y + 1f)/2, objPos.z - camera.transform.position.z) ;
+
+            Debug.Log("投影坐标:" + pos);
+        }
+
+        return pos;
+    }
+
+    /// <summary>
+    /// 世界坐标转屏幕坐标(Screen Space)
+    /// </summary>
+    public static Vector3 WorldToScreenPoint(Camera camera, Vector3 objPos)
+    {
+        Vector3 forward = camera.transform.TransformDirection(Vector3.forward);
+        Vector3 toOther = objPos - camera.transform.position;
+        Vector3 pos = Vector3.zero;
+        //必须在摄像机前方
+        if (Vector3.Dot(forward, toOther) > 0)
+        {
+            Matrix4x4 v = camera.worldToCameraMatrix;
+            Matrix4x4 p = camera.projectionMatrix;
+            Matrix4x4 vp = p * v;
+            //获取投影坐标
+            pos = vp.MultiplyPoint(objPos);
             // (-1, 1)'s clip => (0 ,1)'s viewport 
-            screenPos = new Vector3(screenPos.x + 1f, screenPos.y + 1f, screenPos.z + 1f) / 2f;
-            Debug.Log("投影坐标:" + screenPos);
+            //pos = new Vector3(pos.x + 1f, pos.y + 1f, pos.z + 1f) / 2f;
+            pos = new Vector3((pos.x + 1f) / 2, (pos.y + 1f) / 2, objPos.z - camera.transform.position.z);
             // viewport => screen
-            screenPos = new Vector3(screenPos.x * Screen.width, screenPos.y * Screen.height, objPos.z - camera.transform.position.z);
+            pos = new Vector3(pos.x * Screen.width, pos.y * Screen.height, objPos.z - camera.transform.position.z);
         }
    
-        return screenPos;
+        return pos;
     }
     #endregion
 
