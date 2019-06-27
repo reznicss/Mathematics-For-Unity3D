@@ -98,24 +98,18 @@ public class MathTransform
     /// </summary>
     public static Vector3 WorldToViewportPoint(Camera camera, Vector3 objPos)
     {
-        Vector3 forward = camera.transform.TransformDirection(Vector3.forward);
-        Vector3 toOther = objPos - camera.transform.position;
         Vector3 pos = Vector3.zero;
-        //必须在摄像机前方
-        if (Vector3.Dot(forward, toOther) > 0)
-        {
-            Matrix4x4 v = camera.worldToCameraMatrix;
-            Matrix4x4 p = camera.projectionMatrix;
-            Matrix4x4 vp = p * v;
-            //获取投影坐标
-            pos = vp.MultiplyPoint(objPos);
-            //坐标裁剪 (-1, 1)'s clip => (0 ,1)'s viewport
-            Debug.Log(pos.z);
-            pos = new Vector3((pos.x + 1f)/2, (pos.y + 1f)/2, objPos.z - camera.transform.position.z) ;
-
-            Debug.Log("投影坐标:" + pos);
-        }
-
+        Matrix4x4 v = camera.worldToCameraMatrix;
+        Matrix4x4 p = camera.projectionMatrix;
+        Matrix4x4 vp =  p * v;
+ 
+        //获取投影坐标
+        pos = vp.MultiplyPoint(new Vector4(objPos.x,objPos.y,objPos.z,1));
+        Debug.Log(pos);
+        //Z坐标表示目标点据相机平面的垂直距离(即相机坐标系中Z值)
+        var z = camera.transform.worldToLocalMatrix.MultiplyPoint(objPos).z;
+        // (-1, 1)'s clip => (0 ,1)'s viewport 
+        pos = new Vector3((pos.x + 1f) / 2, (pos.y + 1f) / 2, z);
         return pos;
     }
 
@@ -135,13 +129,11 @@ public class MathTransform
             Matrix4x4 vp = p * v;
             //获取投影坐标
             pos = vp.MultiplyPoint(objPos);
-            // (-1, 1)'s clip => (0 ,1)'s viewport 
-            //pos = new Vector3(pos.x + 1f, pos.y + 1f, pos.z + 1f) / 2f;
-            pos = new Vector3((pos.x + 1f) / 2, (pos.y + 1f) / 2, objPos.z - camera.transform.position.z);
-            // viewport => screen
-            pos = new Vector3(pos.x * Screen.width, pos.y * Screen.height, objPos.z - camera.transform.position.z);
+            var z = camera.transform.worldToLocalMatrix.MultiplyPoint(objPos).z;
+            pos = new Vector3((pos.x + 1f) / 2, (pos.y + 1f) / 2, z);
+            //视口 => 屏幕
+            pos = new Vector3(pos.x * Screen.width, pos.y * Screen.height, z);
         }
-   
         return pos;
     }
     #endregion
