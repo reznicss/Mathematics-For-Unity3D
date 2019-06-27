@@ -83,6 +83,15 @@ public class MathMatrix
         return result;
     }
 
+    public Vector3 MultiplyPoint3x4(Matrix4x4 mat, Vector3 v)
+    {
+        Vector3 result;
+        result.x = (mat.m00 * v.x + mat.m01 * v.y + mat.m02 * v.z) + mat.m03;
+        result.y = (mat.m10 * v.x + mat.m11 * v.y + mat.m12 * v.z) + mat.m13;
+        result.z = (mat.m20 * v.x + mat.m21 * v.y + mat.m22 * v.z) + mat.m23;
+        return result;
+    }
+
     /// <summary>
     /// 世界到本地矩阵
     /// </summary>
