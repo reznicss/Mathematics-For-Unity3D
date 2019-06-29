@@ -13,7 +13,7 @@ using UnityEngine;
  *        | 0   0   Sz  0 |
  *        | 0   0   0   1 |  
  *        
- *平移矩阵| 1   0     0    0 |  | cosA  0  sinA  0 |  | cosA -sinA  0  0 |
+ *旋转矩阵| 1   0     0    0 |  | cosA  0  sinA  0 |  | cosA -sinA  0  0 |
  *        | 0  cosA -sinA  0 |  |  0    1   0    0 |  | sinA  cosA  0  0 |
  *        | 0  sinA  cosA  0 |  |-sinA  0  cosA  0 |  |  0     0    1  0 |
  *        | 0   0     0    1 |  |  0    0   0    1 |  |  0     0    0  1 |
