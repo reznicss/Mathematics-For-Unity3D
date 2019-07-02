@@ -2,6 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*四元数  
+ *1.q = <w,x,y,z> = w +xi + yj + zk 
+ *2.i² + j² + k² = -1
+ *3.不满足交换律,乘法时必须保证顺序
+ *  ij = -ji = k 
+ *  jk = -kj = i
+ *  ki = -ik = j
+ *  
+ */
 public class MathTransform
 {
     /// <summary>

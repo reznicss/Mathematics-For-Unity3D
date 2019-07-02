@@ -2,26 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*矩阵常用  
+/*1.矩阵常用  
  *        |m00 m01 m02 m03| 
  *        |m10 m11 m12 m13|      
  *        |m20 m21 m22 m23|       
  *        |m30 m31 m32 m33|       
  * 
- *缩放矩阵| Sx  0   0   0 |
+ *2.缩放矩阵
+ *        | Sx  0   0   0 |
  *        | 0   Sy  0   0 | 
  *        | 0   0   Sz  0 |
  *        | 0   0   0   1 |  
  *        
- *旋转矩阵| 1   0     0    0 |  | cosA  0  sinA  0 |  | cosA -sinA  0  0 |
+ *3.旋转矩阵
+ *        | 1   0     0    0 |  | cosA  0  sinA  0 |  | cosA -sinA  0  0 |
  *        | 0  cosA -sinA  0 |  |  0    1   0    0 |  | sinA  cosA  0  0 |
  *        | 0  sinA  cosA  0 |  |-sinA  0  cosA  0 |  |  0     0    1  0 |
  *        | 0   0     0    1 |  |  0    0   0    1 |  |  0     0    0  1 |
  *   
- *平移矩阵| 1  0  0  Tx |
+ *4.平移矩阵
+ *        | 1  0  0  Tx |
  *        | 0  1  0  Ty | 
  *        | 0  0  1  Tz |
  *        | 0  0  0   1 | 
+ *5.复合变换 P' = Mt * Mr * Ms * P (缩放 -> 旋转 ->平移，阅读顺序从右到左)
+ *6.Unity旋转顺序ZXY（Unity进行一次旋转时并没有旋转坐标系，实际矩阵相乘时顺序为Mrz * Mrx * Mry，不同旋转顺序得到的结果可能也不一样）
  */
 public class MathMatrix
 {
