@@ -43,7 +43,7 @@ public static class Vector3Utils  {
     /// <param name="origin"></param>
     /// <param name="x"></param>
     /// <returns></returns>
-    public static Vector3 SetX(this Vector3 origin, float x)
+    public static Vector3 SetX(this ref Vector3 origin, float x)
     {
         origin.x = x;
 
