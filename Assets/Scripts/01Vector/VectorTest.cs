@@ -24,8 +24,12 @@ public class VectorTest : MonoBehaviour
         print("向量叉乘(外积):" + Vector3.Cross(t1.position,t2.position) + "_" + MathVector.V3Cross(t1.position, t2.position));
         Debug.DrawLine(Vector3.zero, MathVector.V3Cross(t1.position, t2.position), Color.black, 1000f);
         Vector3 v1 = new Vector3(1,2,3);
-        v1.SetX(4);
+        v1.Add(new Vector3(1,2,3));
         Debug.Log(v1);
+
+        v1.Add(new Vector3(0, 0, 0),new Vector3(1,1,1));
+        Debug.Log(v1);
+
     }
 
     void OnDrawGizmos()
