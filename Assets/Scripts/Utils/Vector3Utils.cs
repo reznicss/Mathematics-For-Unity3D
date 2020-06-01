@@ -289,6 +289,66 @@ public static class Vector3Utils  {
 
     }
 
+    /// <summary>
+    /// 向量乘法
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="v"></param>
+    /// <param name="w"></param>
+    /// <returns></returns>
+    public static Vector3 Multiply(this ref Vector3 origin, Vector3 v, Vector3 w = new Vector3())
+    {
+
+        if (w != Vector3.zero)
+        {
+
+            return origin.MultiplyVectors(v, w);
+
+        }
+
+        origin.x *= v.x;
+        origin.y *= v.y;
+        origin.z *= v.z;
+
+        return origin;
+
+    }
+
+    /// <summary>
+    /// 各分量同时乘以相同变量
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="scalar"></param>
+    /// <returns></returns>
+    public static Vector3 MultiplyScalar(this ref Vector3 origin, float scalar )
+    {
+
+        origin.x *= scalar;
+        origin.y *= scalar;
+        origin.z *= scalar;
+
+        return origin;
+
+    }
+
+    /// <summary>
+    /// 赋值另外两个向量相乘
+    /// </summary>
+    /// <param name="origin"></param>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public static Vector3 MultiplyVectors(this ref Vector3 origin, Vector3 a,Vector3 b)
+    {
+
+        origin.x = a.x * b.x;
+        origin.y = a.y * b.y;
+        origin.z = a.z * b.z;
+
+        return origin;
+
+    }
+
 
 
 
