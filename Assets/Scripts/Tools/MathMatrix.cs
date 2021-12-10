@@ -124,4 +124,34 @@ public class MathMatrix
         return LocalToWorld(transform).inverse;
     }
 
+
+    /// <summary>
+    /// Float数组转化4X4矩阵
+    /// </summary>
+    /// <param name="floatArray">数组</param>
+    /// <returns></returns>
+    public static Matrix4x4 FloatToMatrix4X4(float[] floatArray)
+    {
+        return new Matrix4x4(
+            new Vector4(floatArray[0], floatArray[1], floatArray[2], floatArray[3]),    //Column0
+            new Vector4(floatArray[4], floatArray[5], floatArray[6], floatArray[7]),    //Column1
+            new Vector4(floatArray[8], floatArray[9], floatArray[10], floatArray[11]),  //Column2
+            new Vector4(floatArray[12], floatArray[13], floatArray[14], floatArray[15]) //Column3
+        );
+    }
+
+    /// <summary>
+    /// 4X4矩阵转化Float数组
+    /// </summary>
+    /// <param name="m">矩阵</param>
+    /// <returns></returns>
+    public static float[] Matrix4x4ToFloat(Matrix4x4 m)
+    {
+        float[] floatArray = new float[16];
+        for (int i = 0; i < 16; i++)
+        {
+            floatArray[i] = m[i];
+        }
+        return floatArray;
+    }
 }
