@@ -12,6 +12,7 @@ public class VectorTest : MonoBehaviour
     {
         print("向量长度:" + t1.position.magnitude + "_" + MathVector.V3Magnitude(t1.position));
         print("向量长度平方:" + t1.position.sqrMagnitude + "_" + MathVector.V3SqrMagnitude(t1.position));
+        print("向量距离:" + Vector3.Distance(t1.position,t2.position) + "_" + MathVector.V3Distance(t1.position,t2.position));
 
         print("向量点乘(内积):" + Vector3.Dot(t1.position, t2.position) + "_" + MathVector.V3Dot(t1.position, t2.position));
         print("向量夹角(0到180):" + Vector3.Angle(t1.position, t2.position) + "_" + MathVector.V3Angle(t1.position, t2.position));
@@ -29,17 +30,32 @@ public class VectorTest : MonoBehaviour
 
         v1.Add(new Vector3(0, 0, 0),new Vector3(1,1,1));
         Debug.Log(v1);
-
+        
     }
 
     void OnDrawGizmos()
     {
-        t1.position = t1.position;
-        t2.position = t2.position;
         Gizmos.DrawSphere(t1.position, 0.05f);
         Gizmos.DrawSphere(t2.position, 0.05f);
         Gizmos.DrawLine(Vector3.zero, t1.position);
         Gizmos.DrawLine(Vector3.zero, t2.position);
         //Gizmos.DrawLine(t1.position, t2.position);
     }
+
+    public Vector3 centerPt;
+    public float radius;
+    void Update()
+    {
+        // Get the new position for the object.
+        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 newPos = transform.position + movement;
+
+        // Calculate the distance of the new position from the center point. Keep the direction
+        // the same but clamp the length to the specified radius.
+        Vector3 offset = newPos - centerPt;
+        transform.position = centerPt + Vector3.ClampMagnitude(offset, radius);
+    }
+    
+    
+    
 }

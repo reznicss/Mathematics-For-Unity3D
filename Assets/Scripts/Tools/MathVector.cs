@@ -35,6 +35,11 @@ public class MathVector
         return a.x * a.x + a.y * a.y + a.z * a.z;
     }
 
+    public static float V3Distance(Vector3 a, Vector3 b)
+    {
+        return Mathf.Sqrt(Mathf.Pow(a.x - b.x, 2) + Mathf.Pow(a.y - b.y, 2) + Mathf.Pow(a.z - b.z, 2));
+    }
+
     /// <summary>
     /// 点乘
     /// </summary>
@@ -93,6 +98,7 @@ public class MathVector
         // => ‖projB‖ =  a · b / (‖a‖‖b‖) * ‖a‖
         // => projB = a · b / (‖a‖‖b‖) * ‖a‖ * ( b /‖b‖) 
         return b * Vector3.Dot(a, b) / Vector3.Dot(b, b);
+        // return b * a.magnitude * Mathf.Cos(Vector3.Angle(a, b));
     }
 
     /// <summary>
